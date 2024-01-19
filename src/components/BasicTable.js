@@ -17,6 +17,7 @@ export const BasicTable = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
+    footerGroups,
     rows,
     prepareRow
   } = tableInstance
@@ -44,6 +45,15 @@ export const BasicTable = () => {
           )
         })}
       </tbody>
+      <tfoot>
+        {footerGroups.map((footerGroup) => (
+          <tr {...footerGroup.getFooterGroupProps()}>
+            {footerGroup.headers.map((column) => (
+              <th {...column.getFooterProps()}>{column.render('Footer')}</th>
+            ))}
+          </tr>
+        ))}
+      </tfoot>
     </table>
   )
 }

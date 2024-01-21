@@ -1,4 +1,4 @@
-import { useGlobalFilter, useSortBy, useTable } from 'react-table'
+import { useFilters, useGlobalFilter, useSortBy, useTable } from 'react-table'
 import { COLUMNS } from './columns'
 import MOCK_DATA from './MOCK_DATA.json'
 import { useMemo } from 'react'
@@ -12,7 +12,7 @@ export const BasicTable = () => {
   const tableInstance = useTable({
     columns,
     data
-  }, useGlobalFilter, useSortBy)
+  }, useFilters, useGlobalFilter, useSortBy)
 
   const {
     getTableProps,
@@ -45,6 +45,7 @@ export const BasicTable = () => {
                   <span>
                     {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                   </span>
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
             </tr>

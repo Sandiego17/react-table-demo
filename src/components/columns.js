@@ -6,7 +6,8 @@ export const COLUMNS = [
     Header: 'Id',
     Footer: 'Id',
     accessor: 'id',
-    Filter: ColumnFilter
+    Filter: ColumnFilter,
+    disableFilters: true
   },
   {
     Header: 'First Name',
@@ -43,6 +44,7 @@ export const COLUMNS = [
     Header: 'Phone',
     Footer: 'Phone',
     accessor: 'phone',
-    Filter: ColumnFilter
+    Filter: ColumnFilter,
+    disableFilters: true
   }
 ]

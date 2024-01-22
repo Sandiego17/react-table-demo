@@ -1,18 +1,26 @@
-import { useGlobalFilter, useSortBy, useTable } from 'react-table'
+import { useFilters, useGlobalFilter, useSortBy, useTable } from 'react-table'
 import { COLUMNS } from './columns'
 import MOCK_DATA from './MOCK_DATA.json'
 import { useMemo } from 'react'
 import './BasicTable.css'
 import { GlobalFilter } from './GlobalFilter'
+import { ColumnFilter } from './ColumnFilter'
 
 export const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => MOCK_DATA, [])
 
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter
+    }
+  }, [])
+
   const tableInstance = useTable({
     columns,
-    data
-  }, useGlobalFilter, useSortBy)
+    data,
+    defaultColumn
+  }, useFilters, useGlobalFilter, useSortBy)
 
   const {
     getTableProps,
@@ -45,6 +53,7 @@ export const BasicTable = () => {
                   <span>
                     {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                   </span>
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
             </tr>

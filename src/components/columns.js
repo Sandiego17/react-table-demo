@@ -1,40 +1,50 @@
 import { format } from 'date-fns';
+import { ColumnFilter } from './ColumnFilter';
 
 export const COLUMNS = [
   {
     Header: 'Id',
     Footer: 'Id',
-    accessor: 'id'
+    accessor: 'id',
+    // Filter: ColumnFilter,
+    disableFilters: true
   },
   {
     Header: 'First Name',
     Footer: 'First Name',
-    accessor: 'first_name'
+    accessor: 'first_name',
+    // Filter: ColumnFilter
   },
   {
     Header: 'Last Name',
     Footer: 'Last Name',
-    accessor: 'last_name'
+    accessor: 'last_name',
+    // Filter: ColumnFilter
   },
   {
     Header: 'Gender',
     Footer: 'Gender',
-    accessor: 'gender'
+    accessor: 'gender',
+    // Filter: ColumnFilter
   },
   {
     Header: 'Date of Birth',
     Footer: 'Date of Birth',
     accessor: 'date_of_birth',
-    Cell: ({ value }) => { return format(new Date(value), 'dd/mm/yyyy')}
+    Cell: ({ value }) => { return format(new Date(value), 'dd/mm/yyyy')},
+    // Filter: ColumnFilter
   },
   {
     Header: 'Country',
     Footer: 'Country',
-    accessor: 'country'
+    accessor: 'country',
+    // Filter: ColumnFilter
   },
   {
     Header: 'Phone',
     Footer: 'Phone',
-    accessor: 'phone'
+    accessor: 'phone',
+    // Filter: ColumnFilter,
+    disableFilters: true
   }
 ]

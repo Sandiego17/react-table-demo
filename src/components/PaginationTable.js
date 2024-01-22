@@ -25,11 +25,12 @@ export const PaginationTable = () => {
     pageOptions,
     gotoPage,
     pageCount,
+    setPageSize,
     state,
     prepareRow
   } = tableInstance
 
-  const { pageIndex } = state
+  const { pageIndex, pageSize } = state
 
   return (
     <>
@@ -63,12 +64,12 @@ export const PaginationTable = () => {
         </tbody>
       </table>
 
-      <div>
-        <h3>
-          <span>Page {pageIndex + 1} of {pageOptions.length}</span>
-        </h3>
-
-        <p>
+      <h3>
+        <span>Page {pageIndex + 1} of {pageOptions.length}</span>
+      </h3>
+      
+      <p>
+        <span>
           Go to page: {' '}
           <input
             type='number'
@@ -78,9 +79,22 @@ export const PaginationTable = () => {
               gotoPage(pageNumber)
             }}
             style={{ width: '50px' }}
-          />
-        </p>
+          /> {' '}
+        </span>
 
+        <select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 25, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </p>
+
+      <div>
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>
         <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>

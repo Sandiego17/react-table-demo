@@ -1,8 +1,9 @@
-import { useTable } from 'react-table'
+import { useRowSelect, useTable } from 'react-table'
 import { COLUMNS } from './columns'
 import MOCK_DATA from './MOCK_DATA.json'
 import { useMemo } from 'react'
 import './BasicTable.css'
+import { Checkbox } from './Checkbox'
 
 export const RowSelectionTable = () => {
   const columns = useMemo(() => COLUMNS, [])
@@ -11,7 +12,24 @@ export const RowSelectionTable = () => {
   const tableInstance = useTable({
     columns,
     data
-  })
+  },
+  useRowSelect,
+  (hooks) => {
+    hooks.visibleColumns.push((columns) => {
+      return [
+        {
+          id: 'selection',
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <Checkbox {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }) => (
+            <Checkbox {...row.getToggleRowSelectedProps()} />
+          )
+        }, ...columns
+      ]
+    })
+  }
+  )
 
   const {
     getTableProps,
@@ -19,7 +37,8 @@ export const RowSelectionTable = () => {
     headerGroups,
     footerGroups,
     rows,
-    prepareRow
+    prepareRow,
+    selectedFlatRows
   } = tableInstance
 
   const firstTenRows = rows.slice(0, 10)
@@ -62,6 +81,15 @@ export const RowSelectionTable = () => {
           ))}
         </tfoot>
       </table>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {selectedFlatRows: selectedFlatRows.map((row) => row.original)},
+            null,
+            2
+          )}
+        </code>
+      </pre>
     </>
   )
 }
